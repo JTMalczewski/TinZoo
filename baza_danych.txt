@@ -1,0 +1,77 @@
+Tworzenie bazy danych:
+
+CREATE DATABASE TimZoo;
+
+USE TimZoo;
+
+
+
+tabela Uzytkownicy
+
+USE TimZoo;
+
+CREATE TABLE Uzytkownicy (
+    IDUzytkownika INT AUTO_INCREMENT PRIMARY KEY,
+    Imie VARCHAR(50) NOT NULL,
+    Nazwisko VARCHAR(50) NOT NULL,
+    Pseudonim VARCHAR(50) UNIQUE NOT NULL,
+    Haslo VARCHAR(255) NOT NULL
+);
+
+
+
+tabela Formularz
+
+USE TimZoo;
+
+CREATE TABLE Formularz (
+    IDFormularza INT AUTO_INCREMENT PRIMARY KEY,
+    IDUzytkownika INT,
+    Przestrzen VARCHAR(255),
+    Podworko VARCHAR(255),
+    InneZwierzeta VARCHAR(255),
+    DlugieSpacery VARCHAR(255),
+    Dzieci VARCHAR(255),
+    Agresja VARCHAR(255),
+    MozeSam VARCHAR(255),
+    Choroby VARCHAR(255),
+    Lekliwosc VARCHAR(255),
+    Dieta VARCHAR(255),
+    FOREIGN KEY (IDUzytkownika) REFERENCES Uzytkownicy(IDUzytkownika)
+);
+
+
+
+
+tabela Pieski
+
+USE TimZoo;
+
+CREATE TABLE Pieski (
+    IDPieska INT AUTO_INCREMENT PRIMARY KEY,
+    Przestrzen VARCHAR(255),
+    Podworko VARCHAR(255),
+    InneZwierzeta VARCHAR(255),
+    DlugieSpacery VARCHAR(255),
+    Dzieci VARCHAR(255),
+    Agresja VARCHAR(255),
+    MozeSam VARCHAR(255),
+    Choroby VARCHAR(255),
+    Lekliwosc VARCHAR(255),
+    Dieta VARCHAR(255),
+    Zdjecie BLOB
+);
+
+
+tabela Polaczenia
+
+USE TimZoo;
+
+CREATE TABLE Polaczenia (
+    IDPolaczenia INT AUTO_INCREMENT PRIMARY KEY,
+    IDUzytkownika INT,
+    IDPieska INT,
+    FOREIGN KEY (IDUzytkownika) REFERENCES Uzytkownicy(IDUzytkownika),
+    FOREIGN KEY (IDPieska) REFERENCES Pieski(IDPieska)
+);
+
