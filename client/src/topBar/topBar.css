@@ -1,0 +1,33 @@
+.topBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 3.5rem;
+    border-bottom: 2px solid var(--font-color);
+}
+
+.topBar__placeholder {
+    width: 5rem;
+}
+
+.topBar__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+}
+
+.topBar__title__zoo {
+    color: #e95587;
+}
+
+.topBar__mode__button {
+    width: 2rem;
+    margin-right: 3rem;
+    background-color: inherit;
+    border: none;
+}
