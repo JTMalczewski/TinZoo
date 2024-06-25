@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ankieta</title>
+</head>
+<body>
+    <h1>Ankieta</h1>
+    <form id="surveyForm">
+        <p>Pytanie 1: Czy masz mieszkanie/dom o powierzchni większej niż 75m2? <br>
+            <input type="radio" name="Przestrzen" value="Tak"> Tak
+            <input type="radio" name="Przestrzen" value="Nie"> Nie
+            <input type="radio" name="Przestrzen" value="Obojetne"> Obojętne
+        </p>
+        <p>Pytanie 2: Czy posiadasz podwórko (ogródek/działkę)? <br>
+            <input type="radio" name="Podworko" value="Tak"> Tak
+            <input type="radio" name="Podworko" value="Nie"> Nie
+            <input type="radio" name="Podworko" value="Obojetne"> Obojętne
+        </p>
+        <p>Pytanie 3: Czy posiadasz już jakieś zwierzęta? <br>
+            <input type="radio" name="InneZwierzeta" value="Tak"> Tak
+            <input type="radio" name="InneZwierzeta" value="Nie"> Nie
+            <input type="radio" name="InneZwierzeta" value="Obojetne"> Obojętne
+        </p>
+        <p>Pytanie 4: Czy lubissz długie spacery? <br>
+            <input type="radio" name="DlugieSpacery" value="Tak"> Tak
+            <input type="radio" name="DlugieSpacery" value="Nie"> Nie
+            <input type="radio" name="DlugieSpacery" value="Obojetne"> Obojętne
+        </p>
+        <p>Pytanie 5: Czy posiadasz/planujesz dzieci? <br>
+            <input type="radio" name="Dzieci" value="Tak"> Tak
+            <input type="radio" name="Dzieci" value="Nie"> Nie
+            <input type="radio" name="Dzieci" value="Obojetne"> Obojętne
+        </p>
+        <p>Pytanie 6: Czy mógłbyś przygarnąć pieska, który ma problemy z agresją? <br>
+            <input type="radio" name="Agresja" value="Tak"> Tak
+            <input type="radio" name="Agresja" value="Nie"> Nie
+            <input type="radio" name="Agresja" value="Obojetne"> Obojętne
+        </p>
+        <p>Pytanie 7: Czy codziennie wychodzisz z domu na co najmniej 8/9h? <br>
+            <input type="radio" name="MozeSam" value="Tak"> Tak
+            <input type="radio" name="MozeSam" value="Nie"> Nie
+            <input type="radio" name="MozeSam" value="Obojetne"> Obojętne
+        </p>
+        <p>Pytanie 8: Czy mógłbyś wydawać dodatkowe pieniądze na opiekę zdrowotną (adopcja chorego przewlekle pieska)? <br>
+            <input type="radio" name="Choroby" value="Tak"> Tak
+            <input type="radio" name="Choroby" value="Nie"> Nie
+            <input type="radio" name="Choroby" value="Obojetne"> Obojętne
+        </p>
+        <p>Pytanie 9: Czy mógłbyś adoptować pieska z lękami? <br>
+            <input type="radio" name="Lekliwosc" value="Tak"> Tak
+            <input type="radio" name="Lekliwosc" value="Nie"> Nie
+            <input type="radio" name="Lekliwosc" value="Obojetne"> Obojętne
+        </p>
+        <p>Pytanie 10: Czy byłbyś w stanie wydawać dodatkowe pieniądze zapewniające pieskowi odpowiednią dietę? <br>
+            <input type="radio" name="Dieta" value="Tak"> Tak
+            <input type="radio" name="Dieta" value="Nie"> Nie
+            <input type="radio" name="Dieta" value="Obojetne"> Obojętne
+        </p>
+        <button type="submit">Wyślij</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userID = urlParams.get('userID');
+    
+            document.getElementById('surveyForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(this);
+                formData.append('userID', userID);
+                const data = Object.fromEntries(formData.entries());
+    
+                console.log("Data sent to server:", JSON.stringify(data));
+    
+                fetch('http://localhost:3000/users/submitSurvey', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Ankieta zapisana!');
+                        if (data.redirectUrl) {
+                            window.location.href = data.redirectUrl; // Przekierowanie na stronę główną
+                        }
+                    } else {
+                        alert('Błąd zapisu ankiety: ' + data.message);
+                    }
+                })
+                .catch(error => alert('Błąd: ' + error.message));
+            });
+        });
+    </script>
+    
+</body>
+</html>

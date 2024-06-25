@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejestracja Użytkownika</title>
+</head>
+<body>
+    <h1>Formularz Rejestracji Użytkownika</h1>
+    <form id="registerForm" action="/users/register" method="post">
+        <label for="firstName">Imię:</label>
+        <input type="text" id="firstName" name="firstName" required>
+        <br>
+        <label for="lastName">Nazwisko:</label>
+        <input type="text" id="lastName" name="lastName" required>
+        <br>
+        <label for="username">Pseudonim:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">Hasło:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button type="submit">Zarejestruj</button>
+    </form>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Zapobiegaj standardowej akcji przeglądarki
+    
+            // Zbieranie danych z formularza
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+    
+            // Wykonanie żądania POST do backendu
+            fetch('http://localhost:3000/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())  // Zawsze przetwarzaj odpowiedź jako JSON
+            .then(data => {
+                if (data.redirectUrl && data.userID) {
+                    window.location.href = `${data.redirectUrl}?userID=${data.userID}`; // Przekierowanie z userID
+             } else {
+                    alert('Rejestracja zakończona sukcesem: ' + JSON.stringify(data));
+                }
+            })
+            .catch(error => alert('Błąd rejestracji: ' + error.message));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie Użytkownika</title>
+</head>
+<body>
+    <h1>Logowanie Użytkownika</h1>
+    <form id="loginForm">
+        <label for="username">Pseudonim:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">Hasło:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button type="submit">Zaloguj się</button>
+    </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+
+            fetch('http://localhost:3000/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Błąd logowania: ' + data.error);
+                } else {
+                    // Logowanie udane, zapisywanie danych użytkownika i przekierowanie
+                    sessionStorage.setItem('userId', data.userId);
+                    sessionStorage.setItem('username', data.username);
+                    window.location.href = data.redirectUrl || '/users/zalogowano'; // Ustaw domyślną stronę, jeśli redirectUrl nie jest dostarczony
+                }
+            })
+            .catch(error => alert('Błąd logowania: ' + error.message));
+        });
+    </script>
+    <p><a href="index.html">Powrót do strony głównej</a></p>
+</body>
+</html>

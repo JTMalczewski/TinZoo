@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zalogowano pomyślnie</title>
+</head>
+<body>
+    <h1>Zalogowano pomyślnie!</h1>
+    <p>Witaj, <span id="usernameDisplay"></span>! Twoje ID to: <span id="userIdDisplay"></span></p>
+    <button onclick="logout()">Wyloguj</button>
+
+    <script>
+        // Załadowanie danych z sessionStorage
+        window.onload = function() {
+            const username = sessionStorage.getItem('username');
+            const userId = sessionStorage.getItem('userId');
+            document.getElementById('usernameDisplay').textContent = username;
+            document.getElementById('userIdDisplay').textContent = userId;
+        };
+
+        // Funkcja wylogowania
+        function logout() {
+            fetch('/users/logout', {
+                method: 'GET'
+            })
+            .then(response => {
+                // Po pomyślnym wylogowaniu usuń dane z sessionStorage
+                sessionStorage.clear();
+                // Przekieruj na stronę główną
+                window.location.href = '/';
+            })
+            .catch(error => {
+                console.error('Failed to logout', error);
+                alert('Błąd wylogowania.');
+            });
+        }
+    </script>
+</body>
+</html>
