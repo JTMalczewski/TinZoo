@@ -1,0 +1,87 @@
+<!-- views/addPiesek.html -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodaj Pieska</title>
+</head>
+<body>
+    <h1>Dodaj Pieska</h1>
+    <form id="addPiesekForm" action="/pieski/add" method="post" enctype="multipart/form-data">
+        <p>Przestrzeń: 
+            <input type="radio" name="Przestrzen" value="Tak"> Tak
+            <input type="radio" name="Przestrzen" value="Nie"> Nie
+            <input type="radio" name="Przestrzen" value="Obojetne"> Obojętne
+        </p>
+        <p>Podwórko: 
+            <input type="radio" name="Podworko" value="Tak"> Tak
+            <input type="radio" name="Podworko" value="Nie"> Nie
+            <input type="radio" name="Podworko" value="Obojetne"> Obojętne
+        </p>
+        <p>Inne zwierzęta: 
+            <input type="radio" name="InneZwierzeta" value="Tak"> Tak
+            <input type="radio" name="InneZwierzeta" value="Nie"> Nie
+            <input type="radio" name="InneZwierzeta" value="Obojetne"> Obojętne
+        </p>
+        <p>Długie spacery: 
+            <input type="radio" name="DlugieSpacery" value="Tak"> Tak
+            <input type="radio" name="DlugieSpacery" value="Nie"> Nie
+            <input type="radio" name="DlugieSpacery" value="Obojetne"> Obojętne
+        </p>
+        <p>Dzieci: 
+            <input type="radio" name="Dzieci" value="Tak"> Tak
+            <input type="radio" name="Dzieci" value="Nie"> Nie
+            <input type="radio" name="Dzieci" value="Obojetne"> Obojętne
+        </p>
+        <p>Agresja: 
+            <input type="radio" name="Agresja" value="Tak"> Tak
+            <input type="radio" name="Agresja" value="Nie"> Nie
+            <input type="radio" name="Agresja" value="Obojetne"> Obojętne
+        </p>
+        <p>Może zostać sam: 
+            <input type="radio" name="MozeSam" value="Tak"> Tak
+            <input type="radio" name="MozeSam" value="Nie"> Nie
+            <input type="radio" name="MozeSam" value="Obojetne"> Obojętne
+        </p>
+        <p>Choroby: 
+            <input type="radio" name="Choroby" value="Tak"> Tak
+            <input type="radio" name="Choroby" value="Nie"> Nie
+            <input type="radio" name="Choroby" value="Obojetne"> Obojętne
+        </p>
+        <p>Lękliwość: 
+            <input type="radio" name="Lekliwosc" value="Tak"> Tak
+            <input type="radio" name="Lekliwosc" value="Nie"> Nie
+            <input type="radio" name="Lekliwosc" value="Obojetne"> Obojętne
+        </p>
+        <p>Dieta: 
+            <input type="radio" name="Dieta" value="Tak"> Tak
+            <input type="radio" name="Dieta" value="Nie"> Nie
+            <input type="radio" name="Dieta" value="Obojetne"> Obojętne
+        </p>
+        <input type="file" name="Zdjecie" accept="image/*"><br>
+        <button type="submit">Dodaj Pieska</button>
+    </form>
+
+    <script>
+       document.getElementById('addPiesekForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        fetch('/pieski/add', {
+            method: 'POST',
+            body: formData // Usuń ustawienie nagłówków, aby przeglądarka mogła ustawić właściwe nagłówki dla FormData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Piesek dodany pomyślnie!');
+            } else {
+                alert('Błąd dodania pieska: ' + data.message);
+            }
+        })
+        .catch(error => alert('Błąd: ' + error.message));
+    });
+    </script>
+    
+</body>
+</html>

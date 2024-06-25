@@ -1,0 +1,142 @@
+<!-- views/editPiesek.html -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edytuj Pieska</title>
+</head>
+<body>
+    <h1>Edytuj Pieska</h1>
+    <form id="editPiesekForm" enctype="multipart/form-data">
+        <input type="hidden" id="idPieska" name="idPieska">
+        
+        <!-- Pola formularza -->
+        <p>Przestrzeń:
+            <input type="radio" name="Przestrzen" value="Tak"> Tak
+            <input type="radio" name="Przestrzen" value="Nie"> Nie
+            <input type="radio" name="Przestrzen" value="Obojetne"> Obojętne
+        </p>
+        <!-- Dodaj resztę pól analogicznie -->
+        <p>Podwórko:
+            <input type="radio" name="Podworko" value="Tak"> Tak
+            <input type="radio" name="Podworko" value="Nie"> Nie
+            <input type="radio" name="Podworko" value="Obojetne"> Obojętne
+        </p>
+        <p>Inne zwierzęta:
+            <input type="radio" name="InneZwierzeta" value="Tak"> Tak
+            <input type="radio" name="InneZwierzeta" value="Nie"> Nie
+            <input type="radio" name="InneZwierzeta" value="Obojetne"> Obojętne
+        </p>
+        <p>DlugieSpacery:
+            <input type="radio" name="DlugieSpacery" value="Tak"> Tak
+            <input type="radio" name="DlugieSpacery" value="Nie"> Nie
+            <input type="radio" name="DlugieSpacery" value="Obojetne"> Obojętne
+        </p>
+        <p>Dzieci:
+            <input type="radio" name="Dzieci" value="Tak"> Tak
+            <input type="radio" name="Dzieci" value="Nie"> Nie
+            <input type="radio" name="Dzieci" value="Obojetne"> Obojętne
+        </p>
+        <p>Agresja:
+            <input type="radio" name="Agresja" value="Tak"> Tak
+            <input type="radio" name="Agresja" value="Nie"> Nie
+            <input type="radio" name="Agresja" value="Obojetne"> Obojętne
+        </p>
+        <p>MozeSam:
+            <input type="radio" name="MozeSam" value="Tak"> Tak
+            <input type="radio" name="MozeSam" value="Nie"> Nie
+            <input type="radio" name="MozeSam" value="Obojetne"> Obojętne
+        </p>
+        <p>Choroby:
+            <input type="radio" name="Choroby" value="Tak"> Tak
+            <input type="radio" name="Choroby" value="Nie"> Nie
+            <input type="radio" name="Choroby" value="Obojetne"> Obojętne
+        </p>
+        <p>Lekliwosc:
+            <input type="radio" name="Lekliwosc" value="Tak"> Tak
+            <input type="radio" name="Lekliwosc" value="Nie"> Nie
+            <input type="radio" name="Lekliwosc" value="Obojetne"> Obojętne
+        </p>
+        <p>Dieta:
+            <input type="radio" name="Dieta" value="Tak"> Tak
+            <input type="radio" name="Dieta" value="Nie"> Nie
+            <input type="radio" name="Dieta" value="Obojetne"> Obojętne
+        </p>
+        <!-- Kontynuuj dodawanie pól... -->
+        
+        <input type="file" name="Zdjecie" accept="image/*"><br>
+        <button type="submit">Zapisz zmiany</button>
+    </form>
+
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            console.log('ID pieska:', id); // Powinno pokazać ID pieska w konsoli przeglądarki
+
+            if (id) {
+                // Jeśli ID istnieje, ładuj dane
+                fetch(`/pieski/get/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.success) {
+                        // Jeśli dane są dostępne, ustaw je w formularzu
+                        document.getElementById('idPieska').value = id;
+                        ['Przestrzen', 'Podworko', 'InneZwierzeta', 'DlugieSpacery', 'Dzieci', 'Agresja', 'MozeSam', 'Choroby', 'Lekliwosc', 'Dieta'].forEach(field => {
+                            document.querySelectorAll(`input[name="${field}"]`).forEach(input => {
+                                if(input.value === data.data[field]) input.checked = true;
+                            });
+                        });
+
+                        // Załaduj zdjęcie, jeśli istnieje
+                        if (data.data.Zdjecie) {
+                            const img = document.createElement('img');
+                            img.src = `data:image/jpeg;base64,${data.data.Zdjecie}`;
+                            img.alt = "Zdjęcie pieska";
+                            img.style.width = "200px";
+                            document.body.appendChild(img);
+                        }
+                    } else {
+                        console.error('Błąd podczas ładowania danych pieska: ' + data.message);
+                        alert('Nie udało się załadować danych pieska.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Błąd: ', error);
+                    alert('Błąd techniczny: ' + error.message);
+                });
+            } else {
+                console.error('Brak ID pieska w URL');
+                alert('Brak ID pieska w URL');
+            }
+        });
+
+        // Obsługa wysyłania formularza
+        document.getElementById('editPiesekForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    fetch('/pieski/update', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Piesek zaktualizowany pomyślnie!');
+            window.location.href = '/viewPieski.html';
+        } else {
+            alert('Błąd aktualizacji pieska: ' + data.message);
+        }
+    })
+    .catch(error => {
+        alert('Błąd: ' + error.message);
+        console.error('Błąd: ', error);
+    });
+});
+
+    
+
+    </script>
+</body>
+</html>
