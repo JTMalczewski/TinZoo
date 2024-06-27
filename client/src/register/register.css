@@ -1,0 +1,39 @@
+.register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.register__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    row-gap: 2rem;
+    margin-top: 2rem;
+}
+
+.register__form p {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.register__form__input {
+    width: 300px;
+    background-color: var(--background-color);
+    border: none;
+    border-bottom: 1px solid var(--font-color);
+}
+
+.register__button {
+    width: 200px;
+    border: none;
+    border-radius: 3rem;
+    margin-top: 3rem;
+    background-color: #e95587;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
