@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const userRouter = require('./routes/userRoutes.js'); // Upewnij się, że ścieżka do tego pliku jest prawidłowa
+const piesekRoutes = require('./routes/piesekRoutes');
 const db = require('./config/database.js');
 const session = require('express-session');
 
@@ -19,6 +20,7 @@ app.use(session({
 
 // Podłączenie routera użytkowników
 app.use('/users', userRouter);
+app.use('/pieski', piesekRoutes);  // używaj ścieżki bazowej /pieski dla wszystkich tras w piesekRoutes
 
 // Obsługa statycznych plików HTML
 app.use(express.static(path.join(__dirname, 'views')));
