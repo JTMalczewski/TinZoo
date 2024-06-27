@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wyświetl Pieski</title>
+</head>
+<body>
+    <h1>Lista Piesków</h1>
+    <div id="pieskiContainer"></div>
+
+    <script>
+        window.onload = function() {
+            fetch('/pieski/all')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Odebrane dane piesków:", data.data);
+                    const container = document.getElementById('pieskiContainer');
+                    data.data.forEach(piesek => {
+                        console.log(piesek); // Sprawdź, co zawiera obiekt piesek
+                        const piesekDiv = document.createElement('div');
+                        piesekDiv.innerHTML = `
+                            <h3> ID: ${piesek.IDPieska} - ${piesek.Przestrzen} - ${piesek.Podworko} - ${piesek.InneZwierzeta} - ${piesek.DlugieSpacery} - ${piesek.Dzieci} - ${piesek.Agresja} - ${piesek.MozeSam} - ${piesek.Choroby} - ${piesek.Lekliwosc} - ${piesek.Dieta}</h3>
+                            <img src="data:image/jpeg;base64,${piesek.Zdjecie}" alt="Zdjęcie pieska" style="width:200px;">
+                            <button onclick='editPiesek(${piesek.IDPieska})'>Edytuj</button>
+                            <button onclick='deletePiesek(${piesek.IDPieska})'>Usuń</button>
+                        `;
+                        container.appendChild(piesekDiv);
+                    });
+                } else {
+                    console.error('Błąd podczas ładowania piesków: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Błąd: ', error));
+        };
+
+        function editPiesek(id) {
+            console.log("Edytuj pieska z ID:", id);  // Debugowanie
+            window.location.href = `/editPiesek.html?id=${id}`;
+        }
+
+        function deletePiesek(id) {
+            if (confirm("Czy na pewno chcesz usunąć tego pieska?")) {
+                fetch(`/pieski/delete/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Piesek usunięty pomyślnie!');
+                        window.location.reload();
+                    } else {
+                        alert('Błąd usuwania pieska: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Błąd: ' + error.message);
+                    console.error('Błąd: ', error);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
