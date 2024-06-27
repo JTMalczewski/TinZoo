@@ -33,7 +33,7 @@ export function Register() {
                     <input className='register__form__input' type="text" value={name} onChange={handleChangeSurname} />
                 </label>
                 <label>
-                    <p>I use this email:</p>
+                    <p>I'll use this nick:</p>
                     <input className='register__form__input' type="text" value={name} onChange={handleChangeEmail} />
                 </label>
                 <label>
