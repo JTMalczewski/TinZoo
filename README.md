@@ -17,9 +17,13 @@ $ node app.js
 
 
 before open set up:
+
 npm install mysql2
+
 npm install bcrypt
+
 npm install express-session
+
 npm install mult
 
 ALTER TABLE Pieski MODIFY Zdjecie MEDIUMBLOB;
