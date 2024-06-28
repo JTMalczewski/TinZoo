@@ -16,7 +16,7 @@ $ node app.js
 ```
 
 
-before open set up:
+*before open set up:*
 
 npm install mysql2
 
