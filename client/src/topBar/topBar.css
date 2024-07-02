@@ -13,6 +13,14 @@
     width: 5rem;
 }
 
+.topBar__placeholder__link {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  color: var(--font-color);
+    font-size: large;
+    font-weight: 500;
+}
+
 .topBar__title {
     display: flex;
     justify-content: center;

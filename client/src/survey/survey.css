@@ -1,0 +1,14 @@
+.survey {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.survey__form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    row-gap: 1rem;
+    margin-top: 2rem;
+}

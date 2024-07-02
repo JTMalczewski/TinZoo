@@ -1,11 +1,11 @@
-.register {
+.login {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
-.register__form {
+.login__form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,32 +15,24 @@
     margin-top: 2rem;
 }
 
-.register__form p {
+.login__form p {
     margin: 0;
     margin-bottom: 0.5rem;
     font-size: 1.5rem;
 }
 
-.register__form__input {
+.login__form__input {
     width: 300px;
-    font-size: large;
     background-color: var(--background-color);
     border: none;
     border-bottom: 1px solid var(--font-color);
 }
 
-.register__form__input:focus {
+.login__form__input:focus {
     outline: none;
 }
 
-.register__button {
-    padding: 0.6em 1.2em;
-    font-family: inherit;
-    cursor: pointer;
-    transition: background-color 0.25s;
-    color: #ffffff;
-    text-align: center;
-
+.login__button {
     width: 200px;
     border: none;
     border-radius: 3rem;
@@ -49,9 +41,9 @@
     font-size: 1rem;
     font-weight: bold;
     letter-spacing: 3px;
+    transition: background-color 0.25s;
 }
 
-.register__button:hover {
+.login__button:hover {
     background-color: #e26c93;
-    color: #ffffff;
 }

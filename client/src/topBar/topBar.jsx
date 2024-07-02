@@ -9,7 +9,7 @@ export function TopBar() {
     return (
         <div className={`app ${mode}`}>
             <div className="topBar">
-                <div className='topBar__placeholder'><Link>®️</Link></div>
+                <div className='topBar__placeholder'><Link className='topBar__placeholder__link' to='/register'>Join</Link><Link className='topBar__placeholder__link' to='/login'>Login</Link></div>
                 <h2 className='topBar__title'>
                     <span className='topBar__title__tin'>Tin</span>
                     <span className='topBar__title__zoo'>ZOO</span>
