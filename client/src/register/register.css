@@ -27,6 +27,7 @@
     background-color: var(--background-color);
     border: none;
     border-bottom: 1px solid var(--font-color);
+    color: var(--font-color);
 }
 
 .register__form__input:focus {

@@ -1,80 +1,81 @@
 /* ---------------------------- for topbar ---------------------------- */
 .topBar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 3.5rem;
-    border-bottom: 2px solid var(--font-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 3.5rem;
+  border-bottom: 2px solid var(--font-color);
 }
 
 .topBar__placeholder {
-    width: 5rem;
+  width: 5rem;
 }
 
 .topBar__placeholder__link {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   color: var(--font-color);
-    font-size: large;
-    font-weight: 500;
+  font-size: large;
+  font-weight: 500;
 }
 
 .topBar__title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    font-size: 1.5rem;
-    letter-spacing: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 3px;
 }
 
 .topBar__title__zoo {
-    color: #e95587;
+  color: #e95587;
 }
 
 .topBar__mode__button {
-    width: 2rem;
-    margin-right: 3rem;
-    background-color: inherit;
-    border: none;
+  width: 2rem;
+  margin-right: 3rem;
+  background-color: inherit;
+  border: none;
 }
+
 /* ---------------------------- for children ---------------------------- */
 #root {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .light {
-    --font-color: #333333;
-    --background-color: #ffffff;
-  }
-  
-  .dark {
-    --font-color: #ffffff;
-    --background-color: #333333;
-  }
-  
-  .app {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    background-color: var(--background-color);
-    color: var(--font-color);
-    -webkit-transition: background-color 200ms linear;
-    -ms-transition: background-color 200ms linear;
-    transition: background-color 200ms linear;
-  }
-  
-  .register {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-width: 400px;
-    max-width: 1200px;
-  }
+  width: 100%;
+  height: 100%;
+}
+
+.light {
+  --font-color: #333333;
+  --background-color: #ffffff;
+}
+
+.dark {
+  --font-color: #ffffff;
+  --background-color: #333333;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--background-color);
+  color: var(--font-color);
+  -webkit-transition: background-color 200ms linear;
+  -ms-transition: background-color 200ms linear;
+  transition: background-color 200ms linear;
+}
+
+.register {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 400px;
+  max-width: 1200px;
+}

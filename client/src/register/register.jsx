@@ -28,6 +28,7 @@ export function Register() {
             },
             body: JSON.stringify({ "firstName": name, "lastName": surname, "username": nick, "password": pass })
             .then(response => response.json())
+            .then((data) => {console.log(data)})
             
         })
     };

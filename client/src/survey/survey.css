@@ -8,7 +8,104 @@
 .survey__form {
     display: flex;
     flex-direction: column;
-    max-width: 500px;
-    row-gap: 1rem;
+    max-width: 700px;
     margin-top: 2rem;
+}
+
+.survey__form__question {
+    display: grid;
+    grid-template-columns: 10fr 2fr 2fr 2fr;
+}
+
+.survey__form__question p {
+    padding-right: 1rem;
+}
+
+.survey__form__question input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    height: 25px;
+    width: 25px;
+    transition: all 0.15s ease-out 0s;
+    background: #ffffff;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    outline: none;
+}
+
+.survey__form__question input:hover {
+    background: #9faab7;
+  }
+  .survey__form__question input:checked {
+    background: #ffffff;
+  }
+  .survey__form__question input:checked::before {
+    width: 25px;
+    height: 25px;
+    display:flex;
+    content: "✔";
+    color: #e95587;
+    font-size: 15px;
+    font-weight:bold;
+    position: absolute;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .survey__form__question input {
+    border-radius: 50%;
+  }
+  .survey__form__question input::after {
+    border-radius: 50%;
+  }
+  
+.survey__form__question__container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e95587;
+}
+
+.survey__form__question__container__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+    font-size: large;
+    font-weight: 700;
+}
+
+/* ---------------------------- button ---------------------------- */
+
+.survey__button {
+    padding: 0.6em 1.2em;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.25s;
+    color: #ffffff;
+    text-align: center;
+    width: 200px;
+    border: none;
+    border-radius: 3rem;
+    margin-top: 3rem;
+    background-color: #e95587;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.survey__button:hover {
+    background-color: #e26c93;
+    color: #ffffff;
+}
+
+.survey__button__container {
+    display: flex;
+    justify-content: center;
 }
