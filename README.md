@@ -168,3 +168,24 @@ Opis Działania:
 - saveSurveyData: Wywołuje metodę saveSurvey z modelu Survey w celu zapisania danych ankiety do bazy danych i zwraca wynik operacji.
 
 
+# e. Podsumowanie
+Celem projektu było stworzenie aplikacji internetowej umożliwiającej zarządzanie informacjami o pieskach (atrakcyjne zachęcenie do adopcji bezdomniaka bazowane na aplikacji tinder), a także przeprowadzanie i zarządzanie ankietami dotyczącymi tych zwierząt. Użytkownicy aplikacji mogą rejestrować się, logować i decydowac o atrakcyjności danego pieska. Można dodawać, przeglądać, edytować i usuwać dane o pieskach, a także wypełniać ankiety związane z ich zachowaniami i potrzebami. 
+
+Osiągnięcia:
+- Modułowa Architektura: Wykorzystanie wzorca MVC z rozszerzeniami usługowymi pozwoliło na wyraźne oddzielenie logiki biznesowej od interfejsu użytkownika oraz warstwy danych.
+- Interaktywny Interfejs Użytkownika: Dzięki React.js, interfejs użytkownika jest dynamiczny i przyjazny, co ułatwia użytkownikom zarządzanie informacjami.
+- Bezpieczeństwo Danych: Implementacja haszowania haseł za pomocą bcrypt oraz sesji użytkownika zapewnia ochronę danych osobowych i sesji.
+
+Napotkane trudności:
+- Zapytania do bazy danych: nie zawsze wyświetlały się oczekiwane rekordy
+- Integracja z Backendem: Zapewnienie płynnej komunikacji między frontendem a backendem przy użyciu REST API
+- Problem z dodawaniem i wyświetlaniem zdjęć z bazy danych (BLOB)
+- Problemy z refaktorem
+- Problemy z obsługą błędów
+- Problem z sesją (przekazywanie danych ID i pseudonimu)
+- Problem z przekazywaniem danych z ankiety
+- Problem z odzyskaniem danych podczas edytowania danych z ankiety
+
+Perspektywy Rozwoju
+- Rozbudowa Funkcjonalności: dodanie większej ilości zwierząt (prosta do rozbudowania struktua bazy danych), panel administratora, logowanie nie tylko dla uzytkownika ale także dla różnych schronisk  i fundacji ze zwierzakami, dodanie lokalizacji żeby wyświetlały się zwierzątka najbliżej nas itp..
+- Mobilna Wersja Aplikacji: rozwój dedykowanej aplikacji mobilnej, która zwiększy dostępność i wygodę użytkowania.
