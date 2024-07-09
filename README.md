@@ -31,6 +31,33 @@ ALTER TABLE Pieski MODIFY Zdjecie MEDIUMBLOB;
 
 
 # DOUMENTACJA PROJEKTU
+# b. Wymagania systemowe i funkcjonalne
+### Wymagania Funkcjonalne
+Aplikacja umożliwia zarządzanie użytkownikami, pieskami oraz ankietami:
+
+- Użytkownicy: Rejestracja, logowanie, wylogowywanie.
+- Pieski: Dodawanie, aktualizacja, usuwanie i wyświetlanie.
+- Ankiety: Wypełnianie formularzy ankietowych i zarządzanie wynikami.
+
+### Wymagania Techniczne
+- Backend: Node.js z Express.js.
+- Frontend: React.js.
+- Komunikacja: RESTful API.
+- Baza danych: MySQL.
+- Autentykacja i sesje: express-session.
+- Przesyłanie plików: multer.
+- Zarządzanie hasłami: bcrypt.
+
+### Wymagania dot. Baz Danych
+Struktura obejmuje tabele dla użytkowników, piesków i ankiet. Dane są zapisywane i odczytywane z MySQL z użyciem mysql2.
+
+### Stuktura
+Aplikacja opiera się na wzorcu MVC (Model-View-Controller) z dodatkowymi warstwami usług, co zapewnia modułowość i ułatwia zarządzanie kodem.
+
+- Model: Zarządza strukturą danych i bezpośrednim dostępem do bazy danych MySQL, obsługując wszystkie operacje CRUD dla użytkowników, piesków i ankiet.
+- Widok (View): Wykorzystuje React.js do tworzenia responsywnego i interaktywnego interfejsu użytkownika, który komunikuje się z backendem poprzez REST API.
+- Kontroler: Odpowiada za przyjmowanie i przetwarzanie żądań od użytkowników, a następnie deleguje logikę biznesową do odpowiednich serwisów.
+- Serwisy: Oddzielają logikę biznesową od kontrolerów, zajmując się specyficznymi zadaniami przetwarzania danych, takimi jak walidacja, operacje na danych i ich bezpieczeństwo.
 
 # d. Implementacja
 
