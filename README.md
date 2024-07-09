@@ -32,7 +32,7 @@ ALTER TABLE Pieski MODIFY Zdjecie MEDIUMBLOB;
 
 # DOUMENTACJA PROJEKTU
 
-#d. Implementacja
+# d. Implementacja
 
 ### databse.js
 Opis Działania:
