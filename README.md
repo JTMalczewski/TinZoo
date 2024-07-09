@@ -1,16 +1,25 @@
 # TinZOO
-### Used Technologies
--
--
--
-### Install guide
-Before running app you will need to create database and your own .env file. See `baza_danych.txt` for further instructions.
+Aplikacja, która przybliża psiaki ze schroniska do ich nowych rodzin.
+
+## Wykorzystane technologie, narzędzia i biblioteki
+- mysql2: Biblioteka do obsługi bazy danych MySQL.
+- dotenv: Do zarządzania zmiennymi środowiskowymi.
+- express: Framework do budowy aplikacji webowych.
+- express-session: Middleware do zarządzania sesjami w Express.
+- path: Moduł do pracy ze ścieżkami plików.
+- Promise: Wbudowany obiekt JavaScript do obsługi asynchroniczności.
+- multer: Middleware do obsługi przesyłania plików.
+- bcrypt: Biblioteka do haszowania haseł.
+
+## Install guide
+Przed uruchomieniem aplikacji będziesz musiał zainicjować własną bazę danych oraz stworzyć plik .env z danymi potrzebnymi do dostępu. Potrzebne komendy znajdziesz w pliku `baza_danych.txt`
+
 ### Runing app guide
-to run frontend go to the `./client/` and paste:
+aby uruchomić część forntendową przejdź do `./client/` i wklej poniższą komendę:
 ```
 $ npm run dev
 ```
-to run backend go to the `./app/tinzoo/` and paste:
+apy uruchomić częśc backendową przejdź do `./app/tinzoo/` i wklej poniższą komendę:
 ```
 $ node app.js
 ```
@@ -31,7 +40,7 @@ ALTER TABLE Pieski MODIFY Zdjecie MEDIUMBLOB;
 
 
 # DOUMENTACJA PROJEKTU
-# b. Wymagania systemowe i funkcjonalne
+## b. Wymagania systemowe i funkcjonalne
 ### Wymagania Funkcjonalne
 Aplikacja umożliwia zarządzanie użytkownikami, pieskami oraz ankietami:
 
@@ -59,16 +68,16 @@ Aplikacja opiera się na wzorcu MVC (Model-View-Controller) z dodatkowymi warstw
 - Kontroler: Odpowiada za przyjmowanie i przetwarzanie żądań od użytkowników, a następnie deleguje logikę biznesową do odpowiednich serwisów.
 - Serwisy: Oddzielają logikę biznesową od kontrolerów, zajmując się specyficznymi zadaniami przetwarzania danych, takimi jak walidacja, operacje na danych i ich bezpieczeństwo.
 
-# d. Implementacja
+## d. Implementacja
 
-### databse.js
+#### databse.js
 Opis Działania:
 
 - Użycie mysql2 do połączenia z bazą danych MySQL.
 - Konfiguracja połączenia przy użyciu zmiennych środowiskowych (dotenv).
 - Eksportowanie obiektu połączenia do dalszego użytku w aplikacji.
 
-### app.js
+#### app.js
 Opis Działania:
 
 - Użycie express do stworzenia serwera HTTP.
@@ -78,8 +87,8 @@ Opis Działania:
 - Serwowanie statycznych plików HTML.
 - Nasłuchiwanie na określonym porcie.
 
-## USER
-### userController.js
+### USER
+#### userController.js
 Opis Działania:
 
 - Rejestracja i logowanie użytkowników przy użyciu userService.
@@ -90,26 +99,26 @@ Opis Działania:
                 req.session.username = user.Pseudonim;
   
 - Obsługa wylogowania poprzez zniszczenie sesji.
-### userModel.js
+#### userModel.js
 Opis Działania:
 
 - Klasa User reprezentuje model użytkownika.
 - Metody createUser i findByUsername do tworzenia nowych użytkowników i wyszukiwania po nazwie użytkownika.
 - Korzystanie z Promise do obsługi asynchronicznych zapytań do bazy danych.
-### userRoutes.js
+#### userRoutes.js
 Opis Działania:
 
 - Definicje tras dla rejestracji, logowania, wylogowania oraz wyświetlania strony po zalogowaniu.
 - Wykorzystanie kontrolera userController do obsługi logiki biznesowej.
 
-### userService.js
+#### userService.js
 Opis Działania:
 
 - registerUser: Rejestruje nowego użytkownika, haszując jego hasło przed zapisaniem w bazie danych.
 - loginUser: Loguje użytkownika, sprawdzając poprawność nazwy użytkownika i hasła.
 
-## PIESEK
-### piesekController.js
+### PIESEK
+#### piesekController.js
 Opis Działania:
 
 - addPiesek: Obsługuje dodawanie nowego pieska, w tym przesyłanie zdjęcia, które jest zapisywane jako buffer.
@@ -125,7 +134,7 @@ Opis Działania:
 - getPiesek: Zwraca dane pieska na podstawie jego ID.
 - deletePiesek: Usuwa pieska z bazy danych na podstawie jego ID.
 
-### piesek.js
+#### piesek.js
 Opis Działania:
 
 - create: Dodaje nowego pieska do bazy danych, w tym jego zdjęcie jako buffer.
@@ -134,36 +143,28 @@ Opis Działania:
 - getById: Zwraca dane pieska na podstawie jego ID.
 - delete: Usuwa pieska z bazy danych na podstawie jego ID.
 
-### piesekRoutes.js
+#### piesekRoutes.js
 Opis Działania:
 
 - Trasy do: dodawania nowego pieska, obsługuje przesyłanie plików; pobierania wszystkich piesków; aktualizacji danych pieska, obsługuje przesyłanie plików; pobierania danych pieska na podstawie jego ID; usuwania pieska na podstawie jego ID.
 
-### piesekService.js
+#### piesekService.js
 - użycie async i await, pozwala na nieblokowanie innych działań w programie
 
-## SURVEY
-### surveyController.js
+### SURVEY
+#### surveyController.js
 Opis Działania:
 
 - submitSurvey: Odbiera dane ankiety, weryfikuje obecność userID, zapisuje dane ankiety za pomocą surveyService i zwraca wynik z informacją o sukcesie lub błędzie.
 
-### survey.js
+#### survey.js
 Opis Działania:
 
 - saveSurvey: Zapisuje dane ankiety do bazy danych MySQL za pomocą metody INSERT INTO.
 
-### surveyService.js
+#### surveyService.js
 Opis Działania:
 
 - saveSurveyData: Wywołuje metodę saveSurvey z modelu Survey w celu zapisania danych ankiety do bazy danych i zwraca wynik operacji.
 
-## WYKORZYSTANE NARZĘDZIA I BIBLIOTEKI
-- mysql2: Biblioteka do obsługi bazy danych MySQL.
-- dotenv: Do zarządzania zmiennymi środowiskowymi.
-- express: Framework do budowy aplikacji webowych.
-- express-session: Middleware do zarządzania sesjami w Express.
-- path: Moduł do pracy ze ścieżkami plików.
-- Promise: Wbudowany obiekt JavaScript do obsługi asynchroniczności.
-- multer: Middleware do obsługi przesyłania plików.
-- bcrypt: Biblioteka do haszowania haseł.
+

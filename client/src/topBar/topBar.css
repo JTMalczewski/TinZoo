@@ -30,6 +30,15 @@
   letter-spacing: 3px;
 }
 
+.topBar__title__link {
+  color: inherit;
+  font-weight: inherit;
+}
+
+.topBar__title__link:hover {
+  color: inherit;
+}
+
 .topBar__title__zoo {
   color: #e95587;
 }

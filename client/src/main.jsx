@@ -7,6 +7,7 @@ import { TopBar } from './topBar/topBar';
 import { Register } from './register/register';
 import { Login } from './login/login';
 import { Survey } from './survey/survey';
+import { Home } from './home/home';
 import './index.css'
 
 const router = createBrowserRouter([
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/home",
-        element: <Register />,
+        element: <Home />,
       },
     ],
   },

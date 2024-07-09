@@ -1,8 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const userController = require('../controllers/userController'); // Upewnij się, że ta ścieżka jest poprawna
 const surveyController = require('../controllers/surveyController');
 const router = express.Router();
 const path = require('path'); //do tego zalogowano.html
+
+router.use(cors());
 
 // Endpoint do wyświetlenia strony głównej użytkownika
 //router.get('/', (req, res) => {
