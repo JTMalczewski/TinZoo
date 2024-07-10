@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
+const Survey = require('../models/survey');    
 
 async function registerUser(userData) {
     const { firstName, lastName, username, password } = userData;
@@ -23,6 +24,7 @@ async function loginUser(userData) {
     const { username, password } = userData;
     try {
         const user = await User.findByUsername(username); //zwracany rekord z bazy danych
+        const survey = await Survey.getSurvey(user.IDUzytkownika); //zwracany rekord z bazy danych
         console.log("Otrzymany użytkownik z findByUsername:", user);
         if (!user) {
             throw new Error('Użytkownik nie istnieje');
@@ -33,7 +35,7 @@ async function loginUser(userData) {
             throw new Error('Nieprawidłowe hasło');
         }
 
-        return user;
+        return [user, survey];
     } catch (error) {
         console.error("Błąd przy logowaniu użytkownika:", error);
         throw error;

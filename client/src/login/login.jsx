@@ -24,9 +24,10 @@ export function Login() {
             if (data.error) {
                 alert('Błąd logowania: ' + data.error);
             } else {
+                console.log(data);
                 sessionStorage.setItem('userId', data.userId);
                 sessionStorage.setItem('username', data.username);
-                window.location.href = '/home';
+                // window.location.href = '/home';
             }
         })
         .catch(error => alert('Błąd logowania: ' + error.message));

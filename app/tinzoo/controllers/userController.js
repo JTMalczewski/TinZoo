@@ -27,7 +27,7 @@ class UserController {
                 req.session.userId = user.IDUzytkownika;  // Użyj właściwej nazwy klucza z obiektu użytkownika
                 req.session.username = user.Pseudonim;  // Użyj właściwej nazwy klucza z obiektu użytkownika
                 console.log("Sesja ustawiona: ", req.session.userId, req.session.username);
-                res.json({ message: 'Zalogowano pomyślnie', userId: user.IDUzytkownika, username: user.Pseudonim, redirectUrl: '/users/zalogowano' });
+                res.json({ message: 'Zalogowano pomyślnie', userId: user[0].IDUzytkownika, username: user[0].Pseudonim, redirectUrl: '/users/zalogowano', survey: user[1] });
             } else {
                 res.status(401).json({ error: 'Nieprawidłowe dane logowania' });
             }

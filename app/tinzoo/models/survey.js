@@ -17,6 +17,19 @@ class Survey {
             });
         });
     }
+
+    static async getSurvey(userId) {
+        const query = 'SELECT * FROM Formularz WHERE IDUzytkownika = ?';
+        return new Promise((resolve, reject) => {
+            this.db.query(query, [userId], (error, results) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(results[0]);
+                }
+            });
+        });
+    }
 }
 
 module.exports = Survey;
