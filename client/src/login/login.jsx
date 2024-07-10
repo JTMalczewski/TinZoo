@@ -3,13 +3,13 @@ import './login.css';
 
 export function Login() {
     const [nick, setNick] = useState('');
-    const [pass, setPass] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleChangeNick = (event) => {
         setNick(event.target.value);
     };
     const handleChangePass = (event) => {
-        setPass(event.target.value);
+        setPassword(event.target.value);
     };
     const sendLogin = () => {
         fetch('http://localhost:3000/users/login', {
@@ -17,8 +17,19 @@ export function Login() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ "username": nick, "password": pass })
+            body: JSON.stringify({ "username": nick, "password": password })
         })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert('Błąd logowania: ' + data.error);
+            } else {
+                sessionStorage.setItem('userId', data.userId);
+                sessionStorage.setItem('username', data.username);
+                window.location.href = '/home';
+            }
+        })
+        .catch(error => alert('Błąd logowania: ' + error.message));
     };
 
     return (
@@ -30,7 +41,7 @@ export function Login() {
                 </label>
                 <label>
                     <p>Password:</p>
-                    <input className='login__form__input' type="password" value={pass} onChange={handleChangePass} />
+                    <input className='login__form__input' type="password" value={password} onChange={handleChangePass} />
                 </label>
             </form>
 

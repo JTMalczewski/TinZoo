@@ -1,11 +1,11 @@
-.survey {
+.add {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.survey__form {
+.add__form {
     display: flex;
     flex-direction: column;
     background-color: var(--background-color);
@@ -15,16 +15,23 @@
     padding-bottom: 0.5rem;
 }
 
-.survey__form__question {
+.add__form h3 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+    margin-top: 2rem;
+}
+
+.add__form__question {
     display: grid;
     grid-template-columns: 10fr 2fr 2fr 2fr;
 }
 
-.survey__form__question p {
+.add__form__question p {
     padding-right: 1rem;
 }
 
-.survey__form__question input {
+.add__form__question .add__form__question__input {
     -webkit-appearance: none;
     -moz-appearance: none;
     -ms-appearance: none;
@@ -41,13 +48,13 @@
     outline: none;
 }
 
-.survey__form__question input:hover {
+.add__form__question input:hover {
     background: #9faab7;
   }
-  .survey__form__question input:checked {
+  .add__form__question input:checked {
     background: #ffffff;
   }
-  .survey__form__question input:checked::before {
+  .add__form__question input:checked::before {
     width: 25px;
     height: 25px;
     display:flex;
@@ -60,14 +67,14 @@
     justify-content:center;
   }
 
-  .survey__form__question input {
+  .add__form__question .add__form__question__input {
     border-radius: 50%;
   }
-  .survey__form__question input::after {
+  .add__form__question .add__form__question__input::after {
     border-radius: 50%;
   }
   
-.survey__form__question__container {
+.add__form__question__container {
     height: 100%;
     display: flex;
     justify-content: center;
@@ -75,7 +82,7 @@
     background-color: #e95587;
 }
 
-.survey__form__question__container__label {
+.add__form__question__container__label {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,9 +91,18 @@
     font-weight: 700;
 }
 
+.add__form__question__photo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add__form__question__photo {
+}
+
 /* ---------------------------- button ---------------------------- */
 
-.survey__button {
+.add__button {
     padding: 0.6em 1.2em;
     font-family: inherit;
     cursor: pointer;
@@ -103,12 +119,12 @@
     letter-spacing: 3px;
 }
 
-.survey__button:hover {
+.add__button:hover {
     background-color: #e26c93;
     color: #ffffff;
 }
 
-.survey__button__container {
+.add__button__container {
     display: flex;
     justify-content: center;
 }
