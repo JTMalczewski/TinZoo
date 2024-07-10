@@ -27,7 +27,7 @@ export function Login() {
                 console.log(data);
                 sessionStorage.setItem('userId', data.userId);
                 sessionStorage.setItem('username', data.username);
-                sessionStorage.setItem('survey', data.survey)
+                sessionStorage.setItem('survey', Object.values(data.survey))
                 window.location.href = '/home';
             }
         })
