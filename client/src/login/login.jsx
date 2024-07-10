@@ -27,7 +27,8 @@ export function Login() {
                 console.log(data);
                 sessionStorage.setItem('userId', data.userId);
                 sessionStorage.setItem('username', data.username);
-                // window.location.href = '/home';
+                sessionStorage.setItem('survey', data.survey)
+                window.location.href = '/home';
             }
         })
         .catch(error => alert('Błąd logowania: ' + error.message));
