@@ -2,6 +2,13 @@
 Aplikacja, która przybliża psiaki ze schroniska do ich nowych rodzin.
 
 ## Wykorzystane technologie, narzędzia i biblioteki
+corowe technologie:
+- node v21.0.0
+- react 18.3.1
+- vite
+
+oraz pomniejsze:
+
 - mysql2: Biblioteka do obsługi bazy danych MySQL.
 - dotenv: Do zarządzania zmiennymi środowiskowymi.
 - express: Framework do budowy aplikacji webowych.
@@ -10,6 +17,8 @@ Aplikacja, która przybliża psiaki ze schroniska do ich nowych rodzin.
 - Promise: Wbudowany obiekt JavaScript do obsługi asynchroniczności.
 - multer: Middleware do obsługi przesyłania plików.
 - bcrypt: Biblioteka do haszowania haseł.
+- popmotion: bibioteka do animacji
+- framer-motion: biblioteka do animacji
 
 ## Install guide
 Przed uruchomieniem aplikacji będziesz musiał zainicjować własną bazę danych oraz stworzyć plik .env z danymi potrzebnymi do dostępu. Potrzebne komendy znajdziesz w pliku `baza_danych.txt`
@@ -25,21 +34,31 @@ $ node app.js
 ```
 
 
-**before open set up:**
-
+**upewnij się, że wcześniej wykonałeś:**
+backend:
+```
 npm install mysql2
-
 npm install bcrypt
-
 npm install express-session
-
 npm install mult
-
-ALTER TABLE Pieski MODIFY Zdjecie MEDIUMBLOB;
-
-
+```
+frontend:
+```
+npm install popmotion
+npm install framer-motion
+```
 
 # DOUMENTACJA PROJEKTU
+
+## a. Identyfikacja zagadnienia biznesowego (problemu)
+Naszym celem było stworzenie aplikacji, która odpowiadać będzie na realny problem społeczny. Chcieliśmy, aby projekt miał potencjał na rozwinięcie i ewentualną wersję producyjną. Padło na pomoc bezdomym zwierzętom.
+
+Raport roczny Głównego Lekarza Weterynarnii na rok 2021, na podstawie danych z 228 placówek, szacuje liczbę psów w schroniskach na ponad 82 tysiące, a roczny procent adopcji utrzymuje się w okolicy 60%. Zakładamy, że potencjał adopcyjny jest większy, lecz ogranicza go utrudniona dostępność schronisk, ich niewystarczająca promocja, lub brak świadomości populacji o ilości zwierząt potrzebujących pomocy.
+
+Nasz projekt __TinZoo__ ma odpowiedzieć na te potrzeby.
+
+Celując w sylistykę znanej aplikacji randkowej, opracowaliśmy wersje aplikacji w ramach _proof of concept_, która pozwala rejestrować, przeglądać i dopasowywać podopiecznych schronisk do osób chętnych do adopcji. Filtrujemy wyświetlane zwierzęta, tak aby zwierzęta wymagające dodatkowej opieki wyświetlały się osobą, które mogą zapewnić im odpowiednią pomoc. Mamy nadzieje, rozpromować tą aplikację zarówno wśród pracowników schronisk, jak i osób szukających nowego pupila.
+
 ## b. Wymagania systemowe i funkcjonalne
 ### Wymagania Funkcjonalne
 Aplikacja umożliwia zarządzanie użytkownikami, pieskami oraz ankietami:
@@ -68,7 +87,19 @@ Aplikacja opiera się na wzorcu MVC (Model-View-Controller) z dodatkowymi warstw
 - Kontroler: Odpowiada za przyjmowanie i przetwarzanie żądań od użytkowników, a następnie deleguje logikę biznesową do odpowiednich serwisów.
 - Serwisy: Oddzielają logikę biznesową od kontrolerów, zajmując się specyficznymi zadaniami przetwarzania danych, takimi jak walidacja, operacje na danych i ich bezpieczeństwo.
 
+## c. Analiza zagadnienia i jego modelowanie
+Należało opracować model użytkownika oraz zwierzęcia oraz stworzyć odpowiednie połączenia, umożliwiające identyfikacje odpowiednich powiązań. Charakter problemu biznesowego nie wymagał spożądzenia złożonych metod strukturalnych.
+
+W przyszłości, po rozwinięciu tego rozwiązania, będzie trzeba opracować algorytm dopasowujący wyświetlane zwierzęta urzytkownikom. Jak również, stowrzyć inny rodzaj konta dla schronisk, tak aby mogły dowolnie zarządzać widocznością swoich podopiecznych.
+
+Dodatkowo w finalnej wersji aplikacji nie będzie mogło zabraknąć funkcji czatu z urzytkownikami zarządzającymi schroniskami.
+
+Aktuale podział danych został umieszczony w pliku `baza_danych.txt`
+
 ## d. Implementacja
+Poniżej rozpisano funkcjonalność poszczególnych elementów projektu z podziałem na frontend i backend.
+
+### BACKEND:
 
 #### databse.js
 Opis Działania:
@@ -87,17 +118,15 @@ Opis Działania:
 - Serwowanie statycznych plików HTML.
 - Nasłuchiwanie na określonym porcie.
 
-### USER
 #### userController.js
 Opis Działania:
 
 - Rejestracja i logowanie użytkowników przy użyciu userService.
 - Przechowywanie danych sesji w express-session.
-- 
-                req.session.userId = user.IDUzytkownika;
-  
-                req.session.username = user.Pseudonim;
-  
+```
+req.session.userId = user.IDUzytkownika;
+req.session.username = user.Pseudonim;
+```
 - Obsługa wylogowania poprzez zniszczenie sesji.
 #### userModel.js
 Opis Działania:
@@ -117,18 +146,17 @@ Opis Działania:
 - registerUser: Rejestruje nowego użytkownika, haszując jego hasło przed zapisaniem w bazie danych.
 - loginUser: Loguje użytkownika, sprawdzając poprawność nazwy użytkownika i hasła.
 
-### PIESEK
 #### piesekController.js
 Opis Działania:
 
 - addPiesek: Obsługuje dodawanie nowego pieska, w tym przesyłanie zdjęcia, które jest zapisywane jako buffer.
 
-        const piesekData = req.body;
-        
-        piesekData.Zdjecie = req.file ? req.file.buffer : null;
-        
-        const result = await piesekService.addPiesek(piesekData);
-        
+```
+const piesekData = req.body;
+piesekData.Zdjecie = req.file ? req.file.buffer : null;
+const result = await piesekService.addPiesek(piesekData);
+```
+
 - getAllPieski: Zwraca wszystkie pieski z bazy danych.
 - updatePiesek: Aktualizuje dane pieska, w tym jego zdjęcie, jeśli jest dostarczone.
 - getPiesek: Zwraca dane pieska na podstawie jego ID.
@@ -151,7 +179,6 @@ Opis Działania:
 #### piesekService.js
 - użycie async i await, pozwala na nieblokowanie innych działań w programie
 
-### SURVEY
 #### surveyController.js
 Opis Działania:
 
@@ -167,6 +194,34 @@ Opis Działania:
 
 - saveSurveyData: Wywołuje metodę saveSurvey z modelu Survey w celu zapisania danych ankiety do bazy danych i zwraca wynik operacji.
 
+### FRONTEND
+
+#### index.html
+- Główny plik HTML, który ładuje aplikację React.
+#### package.json
+- Plik konfiguracyjny npm, zawierający zależności projektu oraz skrypty.
+#### vite.config.js
+- Plik konfiguracyjny dla Vite, narzędzia do budowania aplikacji.
+#### main.jsx
+- Główny plik wejściowy aplikacji React, obsługuje Routing.
+#### add.jsx
+- Komponent `Add`, który umożliwia dodawanie nowych elementów.
+#### errorPage.jsx
+- Komponent `ErrorPage`, który wyświetla stronę błędu.
+#### home.jsx
+- Komponent `Home`, który wyświetla stronę główną aplikacji. Tutaj można wyświetlać zdjęcia załadowanych piesków.
+#### login.jsx
+- Komponent `Login`, który umożliwia użytkownikom logowanie się do aplikacji.
+#### register.jsx
+- Komponent `Register`, który umożliwia użytkownikom rejestrację w aplikacji.
+#### survey.jsx
+- Komponent `Survey`, który umożliwia użytkownikom wypełnianie ankiet.
+#### topBar.jsx
+- Komponent `TopBar`, który wyświetla górny pasek nawigacyjny z funkcjonalnościami takimi jak zmiana trybu, wylogowanie oraz linki do rejestracji i logowania.
+#### App.jsx
+- Główny komponent aplikacji, który zarządza trybem (jasny/ciemny) oraz renderuje komponenty `TopBar` i `Register`.
+#### index.css
+- Główny plik stylów dla całej aplikacji.
 
 # e. Podsumowanie
 Celem projektu było stworzenie aplikacji internetowej umożliwiającej zarządzanie informacjami o pieskach (atrakcyjne zachęcenie do adopcji bezdomniaka bazowane na aplikacji tinder), a także przeprowadzanie i zarządzanie ankietami dotyczącymi tych zwierząt. Użytkownicy aplikacji mogą rejestrować się, logować i decydowac o atrakcyjności danego pieska. Można dodawać, przeglądać, edytować i usuwać dane o pieskach, a także wypełniać ankiety związane z ich zachowaniami i potrzebami. 

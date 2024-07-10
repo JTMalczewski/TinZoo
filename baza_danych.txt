@@ -75,3 +75,4 @@ CREATE TABLE Polaczenia (
     FOREIGN KEY (IDPieska) REFERENCES Pieski(IDPieska)
 );
 
+ALTER TABLE Pieski MODIFY Zdjecie MEDIUMBLOB;
